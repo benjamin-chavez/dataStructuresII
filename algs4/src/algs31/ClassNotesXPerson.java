@@ -8,16 +8,16 @@ import stdlib.*;
  *
  *************************************************************************/
 
-public final class XPersonClassNotes implements Comparable<XPersonClassNotes> {
+public final class ClassNotesXPerson implements Comparable<ClassNotesXPerson> {
 	private final String name;
 	private final long info;
 
-	public XPersonClassNotes(String name, long info) {
+	public ClassNotesXPerson(String name, long info) {
 		this.name = name;
 		this.info = info;
 	}
 	
-	public int compareTo(XPersonClassNotes that ) {
+	public int compareTo(ClassNotesXPerson that ) {
 		if ( this.name.compareTo(that.name) < 0)
 			return -1;
 		else if (this.name.compareTo(that.name) > 0)
@@ -35,7 +35,7 @@ public final class XPersonClassNotes implements Comparable<XPersonClassNotes> {
 		if (y == this) return true;
 		if (y == null) return false;
 		if (y.getClass() != this.getClass()) return false;
-		XPersonClassNotes that = (XPersonClassNotes) y;
+		ClassNotesXPerson that = (ClassNotesXPerson) y;
 		return (this.name.equals(that.name)) && (this.info == that.info);
 	}
 
@@ -44,11 +44,11 @@ public final class XPersonClassNotes implements Comparable<XPersonClassNotes> {
 	}
 
 	public static void main(String[] args) {
-		XPersonClassNotes a = new XPersonClassNotes("Alice", 1234);
+		ClassNotesXPerson a = new ClassNotesXPerson("Alice", 1234);
 //		XPersonClassNotes b = new XPersonClassNotes("Alice", 1234);
-		XPersonClassNotes b = new XPersonClassNotes("Alice", 8341);
-		XPersonClassNotes c = new XPersonClassNotes("Bob",   1234);
-		XPersonClassNotes d = new XPersonClassNotes("Alice", 4321);
+		ClassNotesXPerson b = new ClassNotesXPerson("Alice", 8341);
+		ClassNotesXPerson c = new ClassNotesXPerson("Bob",   1234);
+		ClassNotesXPerson d = new ClassNotesXPerson("Alice", 4321);
 		StdOut.println("a = " + a);
 		StdOut.println("b = " + b);
 		StdOut.println("c = " + c);

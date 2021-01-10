@@ -93,19 +93,19 @@ public class FrequencyCounter {
 
 	public static void main(String[] args) {
 		//int minlen = 2; String file = "data/tinyTale.txt";
-		int minlen = 6; String file = "data/tale.txt";
+		int minlen = 8; String file = "data/tale.txt";
 		//int minlen = 12; String file = "data/leipzig1M.txt";
-		StdOut.println ("Java TreeMap (ST)"); testST(minlen, file);
+//		StdOut.println ("Java TreeMap (ST)"); testST(minlen, file);
 		//StdOut.println ("LinearProbingHashST"); testLinearProbingHashST(minlen, file);
 		//StdOut.println ("SeparateChainingHashST"); testSeparateChainingHashST(minlen, file);
 		//StdOut.println ("BST"); testBST(minlen, file);
 		//StdOut.println ("RedBlackBST"); testRedBlackBST(minlen, file);
 		//StdOut.println ("Ordered Array (BinarySearchST)"); testBinarySearchST(minlen, file);
 		//StdOut.println ("Unordered Array (ArrayST)"); testArrayST(minlen, file);
-		//StdOut.println ("Unordered Linked List (SequentialSearchST)"); testSequentialSearchST(minlen, file);
+		StdOut.println ("Unordered Linked List (SequentialSearchST)"); testSequentialSearchST(minlen, file);
 	}
 
-	private static void testLinearProbingHashST (int minlen, String file) {
+	private static void testLinearProbingHashST (int minlen, String file) { 
 		LinearProbingHashST<String, Integer> st = new LinearProbingHashST<>();
 
 		In in = new In (file);
