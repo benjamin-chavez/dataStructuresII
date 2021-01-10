@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/classmexer.jar"/>
+	<classpathentry kind="lib" path="lib/ds1f20lib.jar"/>
+	<classpathentry kind="lib" path="lib/Jama.jar"/>
+	<classpathentry kind="lib" path="lib/jol-core-0.9.jar"/>
+	<classpathentry kind="lib" path="lib/qsopt.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
