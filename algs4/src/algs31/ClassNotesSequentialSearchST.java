@@ -95,21 +95,21 @@ public class ClassNotesSequentialSearchST<K, V> {
 		// Need to write a helper function to return the corrected list
 		// because there is no way for this interface to specify
 		// a smaller list
-		first = deleteHelper(first, key);
+//		first = deleteHelper(first, key);
 		
 	}
 	
-	public Node deleteHelper( Node x, K key) {
-		// two base cases:
-		if (x == null ) return null;
-		if ( x.key.equals(key))
-			return x.next;
-		
-		// general case
-		x.next = deleteHelper(x.next, key);
-		
-		return x;
-	}
+//	public Node deleteHelper( Node x, K key) {
+//		// two base cases:
+//		if (x == null ) return null;
+//		if ( x.key.equals(key))
+//			return x.next;
+//		
+//		// general case
+//		x.next = deleteHelper(x.next, key);
+//		
+//		return x;
+//	}
 
 	// delete key in linked list beginning at Node<K,V> x
 	// warning: function call stack too large if table is large
