@@ -1,11 +1,12 @@
 
 /*
  * DS 2  Homework Assignment 2   verison 1.0   expand me!
+ * Name: Benjamin M. Chavez
  * 
  * Instructions:
  * 
  * This class is a simple variation on the BinarySearchST class from section 3.1
- * Like the BinarySearchST, this class stores a sybmol table in ordered form in two parallel arrays
+ * Like the BinarySearchST, this class stores a symbol table in ordered form in two parallel arrays
  * You can likely leverage some of the code from the BinarySearchST class for this assignment, however
  * be sure that you understand it well enough to be able to recreate it (or simple variations) on
  * an exam
@@ -46,6 +47,7 @@
 package homework;  
 
 import stdlib.StdOut;
+import stdlib.Stopwatch;
 
 public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	private static final int MIN_SIZE = 2;
@@ -208,6 +210,7 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 
 	
 	/**
+	 * *****************************************************************************************************************************SHIFTLEFT
 	 * shiftLeft
 	 * 
 	 * preconditions:
@@ -221,7 +224,15 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 */
 	private void shiftLeft(int r) {
 		// ToDo 1.0:  implement this function, see also: ToDo 1.1, 1.2
-
+		
+		for ( int i = r; i < N - 1; i++) {
+			keys[i] = keys[i + 1];
+			vals[i] = vals[i + 1];
+		}
+		
+		keys[N - 1] = null;
+		vals[N - 1] = null;
+		N = N -1;
 	}
 	
 	
@@ -237,7 +248,18 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	private void shiftRight(int r) {
-
+		
+		if ( keys.length < N + 1) {
+			resize ( N +1);
+		}
+		N = N +1;
+		if (N == 1)
+			return;
+		for (int i = N -1; i >= r; i--) {
+			keys[i] = keys[i -1];
+			vals[i] = vals[i -1];
+		}
+		
 		return; // ToDo 2.0 : implement this function, see also: ToDo 2.1, 2.2
 
 	}
@@ -250,9 +272,17 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * must be logarithmic time for full credit.   Hint :  rank
 	 */
 	public Key floor(Key key) {
-
-		return null; // ToDo3:  implement this function
-
+		// ToDo3:  implement this function
+		
+		if ( key.compareTo(keys[0]) < 0) {
+			return null;
+		}
+		for ( int i = 0; i <= N; i++) {
+			if ( checkFor(key, i)) {
+				return keys[rank(key)];
+			}
+		}
+		return keys[rank(key) - 1]; 
 	}
 	/**
 	 * countRange
@@ -263,18 +293,75 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * must run in logarithmic time for full credit.  hint: rank
 	 */
 	public int countRange(Key key1, Key key2) {
-		;
-		return -1; // ToDo4:  implement this function
+		// ToDo4:  implement this function
+		
+		// Solution 1:
+//		 Stopwatch sw = new Stopwatch();
+		int rank1 = rank(key1);
+		int rank2 = rank(key2);
+		int range = Math.abs(rank2 - rank1);
+		for ( int i = 0; i <= N; i++) {
+			if ( checkFor(key1, i)) {
+				for ( int j = 0; j <= N; j++) {
+					if ( checkFor( key2, j)) {
+						range += 1;
+					}
+				}
+			}
+		}
+//		 StdOut.println("  put time: " + sw.elapsedTime ());
+		return range;
+
+		
+//		// Solution 2:
+//		Stopwatch sw = new Stopwatch();
+//		int rankHigh;
+//		int rankLow;
+//		Key keyHigh;
+//		Key keyLow;
+//		int range;
+//		if ( key1.compareTo(key2) < 0) {
+//			keyLow = key1;
+//			keyHigh = key2;
+//		} else {
+//			keyLow = key2;
+//			keyHigh = key1;
+//		}
+//		range = Math.abs(rank(key1) - rank(key2));
+//		
+//		for (int i = 0; i <= N; i++) {
+//			if (checkFor(keyLow, i)) {
+//				for (int j = i+1; j <= N; j++)
+//					if (checkFor(keyHigh, j)) {
+//						StdOut.println("  put time: " + sw.elapsedTime ());
+//						return range += 1;
+//					}
+//			}
+//		}
+//		StdOut.println("  put time: " + sw.elapsedTime ());
+//		return range; 
 	}
 
 	/**
 	 * rank returns the number of keys in this symbol table that is less than the given key. 
 	 */
 	public int rank(Key key) {
-		return linearTimeRank(key);
-
+//		return linearTimeRank(key);
+		
 		// ToDo5 : replace the above call to linearTimeRank with 
 		//         a logarithmic time implementation
+		int hi = N-1, lo = 0;
+		while (lo <= hi) {
+			int mid = lo + (hi - lo) / 2;
+			int comp = key.compareTo(keys[mid]);
+			if ( comp < 0)
+				hi = mid - 1;
+			else if ( comp > 0)
+				lo = mid + 1;
+			else
+				return mid;
+		}
+		return lo;
 	}
 
 	/**
@@ -325,6 +412,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		// ToDo 1.1, 1.2  add two  additional test cases for delete
 		//    include comments to describe what your case is checking for
 		//    try to think of an 'extreme' case
+		testDelete("","", "K","","");    					// empty list
+		testDelete("A","1", "A","","");    					// delete only item from list
+		testDelete("ABDFK","12345", "Z","ABDFK","12345");   // delete item not in list
 
 	}
 	public static void allShiftRightTests() {
@@ -336,6 +426,8 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		// ToDo 2.1 , 2.2   add two  additional test cases for put
 		//    include comments to describe what your case is checking for
 		//    try to think of an 'extreme' case
+		testPut("AEIOU","13456", "A","2", "AEIOU","23456");		// key already in list (update key value)
+		testPut("","", "B","1", "B","1");						// start with empty list
 
 	}
 	public static void allFloorTests() {
@@ -354,6 +446,9 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 		testCountRange("BEIOU","13456", "U","B", 5);   // whole Range
 		testCountRange("BEIOU","13456", "A","Z",5);    // whole Range
 		testCountRange("BEIOU","13456", "C","P",3);    // partial Range
+		
+		// Additional Test Cases:
+		testCountRange("BEIOU","13456", "E","P",3);    // partial Range (tests if only one Key exists in list)
 
 	}
 	public static void allRankTests() {
@@ -454,7 +549,7 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	 * then call the delete function, compare to the expected answer
 	 */
 	public static void testDelete(String keyInData, String valInData, String delKey, 
-			String keyOutData, String valOutData) {
+		String keyOutData, String valOutData) {
 		SortedArrayST<String, String> actual = from(keyInData,valInData);
 		SortedArrayST<String, String> expected = from(keyOutData, valOutData);
 		actual.delete(delKey);

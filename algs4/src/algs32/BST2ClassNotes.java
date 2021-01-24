@@ -403,7 +403,8 @@ public class BST2ClassNotes<K extends Comparable<? super K>, V> {
 	public static void main(String[] args) {
 		//StdIn.fromString ("S E A R C H E X A M P L E");
 		//StdIn.fromString ("D F B  G E A C");
-		StdIn.fromString ("C A B E D");
+//		StdIn.fromString ("C A B E D");
+		StdIn.fromString ("X B E F G W M");
 
 		BST2ClassNotes<String, Integer> st = new BST2ClassNotes<>();
 		for (int i = 0; !StdIn.isEmpty(); i++) {

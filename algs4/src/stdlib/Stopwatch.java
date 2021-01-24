@@ -26,6 +26,7 @@ public class Stopwatch {
 	 */
 	public Stopwatch() {
 		start = System.currentTimeMillis();
+//		start = System.nanoTime();
 	}
 
 
@@ -34,6 +35,7 @@ public class Stopwatch {
 	 */
 	public double elapsedTime() {
 		long now = System.currentTimeMillis();
+//		long now = System.nanoTime();
 		return (now - start) / 1000.0;
 	}
 
