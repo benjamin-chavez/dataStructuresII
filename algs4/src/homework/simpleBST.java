@@ -6,13 +6,12 @@ import stdlib.GraphvizBuilder;
 import stdlib.StdDraw;
 import stdlib.StdOut;
 
-/*   Your Name goes here
-*   You class section  goes here
+/*  Benjamin M. Chavez
+*   Section 810
 *   
 *   Delete one of the following:
 *  A) The work submitted here is solely mine. 
 *  
-*  B) I had *some* help on the following parts of this assignment
 *   
 */ 
 
@@ -108,6 +107,7 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 *   
 	 *   
 	 *   To Do 1
+	 *   ***************************************************************************************************************************STARTHERE
 	 */
 	public Iterable<Key> ioKeys() {
 		Queue<Key> qok = new Queue();  // queue of keys
@@ -238,18 +238,19 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	{
 		// the 3 lines below are just
 		// to illustrate building a tree and visualizing it
-		// comment out or delete before submitting
-		//simpleBST<String,String> sampleTree = from("bcade","56981");
-		//sampleTree.drawTree();
-		//sampleTree.toGraphviz("myTree");
+		// comment out or delete before submitting 
+		// from (keys, values)
+//		simpleBST<String,String> sampleTree = from("bcade","56981");
+//		sampleTree.drawTree();
+//		sampleTree.toGraphviz("myTree");
 		
 		
 		// comment in/out calls to focus on a given ToDo method  				
 		iokeysTests();
-		putTests();
-		numNodesWithExactlyOneChildTests();
-		numNodesAtDepthDTests();
-		deleteTests();
+//		putTests();
+//		numNodesWithExactlyOneChildTests();
+//		numNodesAtDepthDTests();
+//		deleteTests();
 	}
 
 	/* ioKeysTests
@@ -372,6 +373,8 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		// create and populate the table from the input string keys
 		simpleBST<String,String> aTree = from(keys,keys);
 	
+//		*********************************** To draw tree
+//		aTree.drawTree();
 		//  do the test
 		Iterable<String> actual = aTree.ioKeys();
 		//report result
