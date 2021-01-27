@@ -240,13 +240,17 @@ public class BST2ClassNotes<K extends Comparable<? super K>, V> {
 		return rank(key, root);
 	}
 
-	// Number of keys in the subtree less than x.key.
+	// Number of keys in the subtree less than x.key.'
+	// Lecture Notes
 	private int rank(K key, Node<K,V> x) {
-		if (x == null) return 0;
+		// case 1: key is smaller than the smallest key in the tree
+		if ( x == null) return 0;
 		int cmp = key.compareTo(x.key);
-		if      (cmp < 0) return rank(key, x.left);
-		else if (cmp > 0) return 1 + size(x.left) + rank(key, x.right);
-		else              return size(x.left);
+		if ( cmp < 0) return rank(key, x.left);
+		else if ( cmp == 0 ) return size(x.left); 
+		else // cmp > 0 (key we are looking for is in the right subtree)
+			return 1 + size(x.left) + rank( key, x.right);
+		
 	}
 
 	/* *********************************************************************
@@ -404,7 +408,7 @@ public class BST2ClassNotes<K extends Comparable<? super K>, V> {
 		//StdIn.fromString ("S E A R C H E X A M P L E");
 		//StdIn.fromString ("D F B  G E A C");
 //		StdIn.fromString ("C A B E D");
-		StdIn.fromString ("X B E F G W M");
+		StdIn.fromString ("2, 4, 3, 5, 1, 6, 7");
 
 		BST2ClassNotes<String, Integer> st = new BST2ClassNotes<>();
 		for (int i = 0; !StdIn.isEmpty(); i++) {

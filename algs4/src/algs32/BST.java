@@ -389,9 +389,9 @@ public class BST<K extends Comparable<? super K>, V> {
 	 *  Test client
 	 *****************************************************************************/
 	public static void main(String[] args) {
-		//StdIn.fromString ("S E A R C H E X A M P L E");
+		StdIn.fromString ("W I N T E R I S C O M I N G");
 		//StdIn.fromString ("D F B  G E A C");
-		StdIn.fromString ("C A B E D");
+//		StdIn.fromString ("E A S Y Q U E S T I O N");
 
 		BST<String, Integer> st = new BST<>();
 		for (int i = 0; !StdIn.isEmpty(); i++) {
@@ -400,12 +400,14 @@ public class BST<K extends Comparable<? super K>, V> {
 		}
 		//GraphvizBuilder.nodesToFile (st.root);
 		st.toGraphviz ("g.png");
-		//        st.drawTree ();
+		        st.drawTree ();
 		Iterable<String> keys = st.levelOrder();
 		for (String s : keys)
 			StdOut.println(s + " " + st.get(s));
 		//        StdOut.println();
 		//        for (String s : st.keys())
 		//            StdOut.println(s + " " + st.get(s));
+		
+
 	}
 }

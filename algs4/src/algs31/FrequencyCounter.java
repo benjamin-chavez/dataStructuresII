@@ -94,7 +94,7 @@ public class FrequencyCounter {
 	public static void main(String[] args) {
 		//int minlen = 2; String file = "data/tinyTale.txt";
 //		int minlen = 4; String file = "data/tale.txt";
-		int minlen = 10; String file = "data/leipzig1M.txt";
+		int minlen = 11; String file = "data/leipzig1M.txt";
 //		StdOut.println ("Java TreeMap (ST)"); testST(minlen, file);
 		//StdOut.println ("LinearProbingHashST"); testLinearProbingHashST(minlen, file);
 		//StdOut.println ("SeparateChainingHashST"); testSeparateChainingHashST(minlen, file);
