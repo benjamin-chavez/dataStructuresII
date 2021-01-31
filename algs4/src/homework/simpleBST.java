@@ -97,6 +97,7 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		if ( x == null) return 0;
 		return 1 + size(x.left)+size(x.right);
 	}
+	
 	/** iokeys
 	 * 
 	 * Returns an Iterable containing the keys of the tree
@@ -106,12 +107,21 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * use a helper function to carry out the traversal  
 	 *   
 	 *   
-	 *   To Do 1
+	 *   ToDo 1
 	 *   ***************************************************************************************************************************STARTHERE
 	 */
 	public Iterable<Key> ioKeys() {
 		Queue<Key> qok = new Queue();  // queue of keys
+		ioKeys(root, qok);
 		return qok;  //To do 1 complete this method
+	}
+	
+	private Iterable<Key> ioKeys(Node x, Queue<Key> qok) {
+		if ( x == null ) return qok;	
+		ioKeys(x.left, qok);			// Traverse the left subtree in order
+		qok.enqueue(x.key); 			// Process the node's root
+		ioKeys(x.right, qok);			// Traverse the right subtree in order
+		return qok;
 	}
 
 	
@@ -125,7 +135,37 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
          *   you must fully document this method to receive credit
 	 */
 	public void put(Key key, Value val) {
-		return;    // To Do 2  complete this method
+		// return;    // To Do 2  complete this method
+		// declare x as root to be able to update value during iteration
+		Node x = root;
+		
+		while ( x != null ) {
+			// create a comparison vaiable to determine if key is less than, equal to, or greater than the current node.
+			int comp = key.compareTo(x.key);
+			// if key is equal to the current node, update the node's value 
+			if (comp == 0) {
+				x.val = val;
+				return;
+			}
+			// if key is less than the current node, iterate over the left subtree
+			else if (comp < 0) {
+				if (x.left == null) {					// if at the end of left subtree create new node
+					x.left = new Node(key, val);
+					return;
+				}
+				else
+					x = x.left;							// update iterable and continue while loop
+			}
+			// if key is greater than the current node, iterate over the right subtree
+			else
+				if (x.right == null) {					// if at the end of right subtree create new node
+					x.right = new Node(key, val);
+					return;
+				}
+					
+				else
+					x = x.right;						// update iterable and continue while loop
+		}
 	}
 
 
@@ -137,8 +177,28 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * ToDo 3  
 	 */
 	public int numNodesWithExactlyOneChild() {
+		int count = 0;
+		return numNodesWithExactlyOneChild(root, count);
 		
-		return -1; // ToDo 3 complete this method
+//		return -1; // ToDo 3 complete this method
+	}
+	
+	private int numNodesWithExactlyOneChild(Node x, int count) {
+		if (x == null) return count;
+		if ( x.left == null && x.right == null) return count;
+		
+		if ( x.left == null && x.right != null) {
+			count = numNodesWithExactlyOneChild(x.right, count + 1);
+		}
+		else if ( x.left != null && x.right == null ) {
+			count = numNodesWithExactlyOneChild(x.left, count + 1);
+			return count;
+		}
+		else {
+			count = numNodesWithExactlyOneChild(x.left, count);
+			count = numNodesWithExactlyOneChild(x.right, count);
+		}
+		return count;
 	}
 	
 	/** numberOfNodesAtDepth
@@ -153,8 +213,22 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * ToDo 4
 	 */
 	public int numNodesAtDepth(int d) {
-		return -1; // ToDo 4  complete this method
 		
+		int count = 0;
+		return numNodesAtDepth(root, d, count);
+		//		return -1; // ToDo 4  complete this method	
+	}
+	
+	private int numNodesAtDepth(Node x, int depth, int count) {
+		
+		if (x == null ) return count;
+		if (depth == 0) {
+			return count += 1;
+		}
+		count = numNodesAtDepth(x.left, depth -1, count);
+		count = numNodesAtDepth(x.right, depth -1, count);
+		
+		return count;
 	}
 	
 	/**
@@ -174,10 +248,35 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 	 * 
 	 */
 	public void delete(Key key) {
-		StdOut.println(" delete not implemented ");
+//		StdOut.println(" delete not implemented ");
+		root = delete(root, key);
 		return;  // ToDo 5  complete this method
 	}
 
+	private Node delete(Node x, Key key) {
+		
+		if ( x == null) 
+			return null;
+		
+		int comp = key.compareTo(x.key);
+		if (comp < 0 )
+			x.left = delete(x.left, key);
+		else if (comp > 0)
+			x.right = delete(x.right, key);
+		else {									// comp == 0
+			if (x.right == null)
+				return x.left;
+			if (x.left == null)
+				return x.right;
+			Node t = x;
+			x = max(t.left);
+			x.left = deleteMax(t.left);
+			x.right = t.right;
+			
+		}
+		return x;
+		
+	}
 	
 	/** max
 	 * 
@@ -247,10 +346,10 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		
 		// comment in/out calls to focus on a given ToDo method  				
 		iokeysTests();
-//		putTests();
-//		numNodesWithExactlyOneChildTests();
-//		numNodesAtDepthDTests();
-//		deleteTests();
+		putTests();
+		numNodesWithExactlyOneChildTests();
+		numNodesAtDepthDTests();
+		deleteTests();
 	}
 
 	/* ioKeysTests
@@ -300,6 +399,9 @@ public class simpleBST<Key extends Comparable<Key>, Value> {
 		testNumNodesWithExactlyOneChild("CA", 1);
 		testNumNodesWithExactlyOneChild("BAC", 0);
 		testNumNodesWithExactlyOneChild("ABC", 2);
+		
+//		testNumNodesWithExactlyOneChild("CBA", 2);
+	
 		testNumNodesWithExactlyOneChild("BACD", 1);
 		testNumNodesWithExactlyOneChild("CBADE", 2);
 		testNumNodesWithExactlyOneChild("DBACFEG", 0);
