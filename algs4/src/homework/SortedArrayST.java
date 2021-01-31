@@ -274,15 +274,23 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	public Key floor(Key key) {
 		// ToDo3:  implement this function
 		
-		if ( key.compareTo(keys[0]) < 0) {
-			return null;
-		}
-		for ( int i = 0; i <= N; i++) {
-			if ( checkFor(key, i)) {
-				return keys[rank(key)];
-			}
-		}
-		return keys[rank(key) - 1]; 
+		// New solution from Teacher
+		int pos = rank(key);
+		if ( pos >= N) return keys[pos-1];
+		if ( key.equals(keys[pos])) return key;
+		if ( pos == 0) return null;
+		else return keys[pos-1];
+		
+//		//turned in solution below was not logarithmic
+//		if ( key.compareTo(keys[0]) < 0) {
+//			return null;
+//		}
+//		for ( int i = 0; i <= N; i++) {
+//			if ( checkFor(key, i)) {
+//				return keys[rank(key)];
+//			}
+//		}
+//		return keys[rank(key) - 1]; 
 	}
 	/**
 	 * countRange
@@ -295,22 +303,44 @@ public class SortedArrayST<Key extends Comparable<Key>, Value> {
 	public int countRange(Key key1, Key key2) {
 		// ToDo4:  implement this function
 		
-		// Solution 1:
-//		 Stopwatch sw = new Stopwatch();
-		int rank1 = rank(key1);
-		int rank2 = rank(key2);
-		int range = Math.abs(rank2 - rank1);
-		for ( int i = 0; i <= N; i++) {
-			if ( checkFor(key1, i)) {
-				for ( int j = 0; j <= N; j++) {
-					if ( checkFor( key2, j)) {
-						range += 1;
-					}
-				}
-			}
+		// New solution from Teacher
+			// order the keys
+		if ( key1.compareTo(key2) > 0) {
+			Key tmp = key1;
+			key1 = key2;
+			key2 = tmp;
 		}
-//		 StdOut.println("  put time: " + sw.elapsedTime ());
-		return range;
+		
+		// key1 is less than key2
+		int r1 = rank(key1);
+		int r2 = rank(key2);
+		int ans = r2 - r1;
+		
+		if ( r2 >= N) return ans;
+		if ( keys[r2].equals(key2))ans++;
+		
+		
+		
+		return ans;
+		
+		
+//		//turned in solutions below was not logarithmic
+//		// Solution 1:
+////		 Stopwatch sw = new Stopwatch();
+//		int rank1 = rank(key1);
+//		int rank2 = rank(key2);
+//		int range = Math.abs(rank2 - rank1);
+//		for ( int i = 0; i <= N; i++) {
+//			if ( checkFor(key1, i)) {
+//				for ( int j = 0; j <= N; j++) {
+//					if ( checkFor( key2, j)) {
+//						range += 1;
+//					}
+//				}
+//			}
+//		}
+////		 StdOut.println("  put time: " + sw.elapsedTime ());
+//		return range;
 
 		
 //		// Solution 2:
