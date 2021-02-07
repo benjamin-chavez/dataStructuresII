@@ -417,7 +417,7 @@ public class BST2ClassNotes<K extends Comparable<? super K>, V> {
 		}
 		//GraphvizBuilder.nodesToFile (st.root);
 //		st.toGraphviz ("g.png");
-        st.drawTree ();
+//        st.drawTree ();
         
         StdOut.println( " get A " + st.get("A"));
         StdOut.println( " get E " + st.get("E"));

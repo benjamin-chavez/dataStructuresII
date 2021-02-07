@@ -596,7 +596,9 @@ public class RedBlackBST<K extends Comparable<? super K>, V> {
 	 *  Test client
 	 *****************************************************************************/
 	public static void main(String[] args) {
-		StdIn.fromString ("S E A R C H E X A M P L E");
+//		StdIn.fromString ("S E A R C H E X A M P L E");
+		StdIn.fromString ("A C  Y T H");
+//		StdIn.fromString ("K J I H G F E D C B A");
 		//StdIn.fromString ("D F B  G E A C");
 
 		RedBlackBST<String, Integer> st = new RedBlackBST<>();
