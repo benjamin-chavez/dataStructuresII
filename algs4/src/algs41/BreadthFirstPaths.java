@@ -57,7 +57,7 @@ public class BreadthFirstPaths {
 	}
 
 
-	// BFS from single soruce
+	// BFS from single source
 	private void bfs(Graph G, int s) {
 		Queue<Integer> q = new Queue<>();
 		for (int v = 0; v < G.V(); v++) distTo[v] = INFINITY;

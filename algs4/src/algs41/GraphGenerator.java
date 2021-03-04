@@ -363,7 +363,7 @@ public class GraphGenerator {
         return G;
     }
 
-    // http://www.proofwiki.org/wiki/Labeled_Tree_from_PrÃ¼fer_Sequence
+    // http://www.proofwiki.org/wiki/Labeled_Tree_from_Prüfer_Sequence
     // http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.36.6484&rep=rep1&type=pdf
     /**
      * Returns a uniformly random tree on {@code V} vertices.
